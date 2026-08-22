@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <filter id="ultraBeamGlowDark" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur1" />
+      <feGaussianBlur stdDeviation="5" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="blur2" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <style>
+      <![CDATA[
+      @keyframes sweepLayerBeam {
+        0%   { transform: translate(-220px, -120px) rotate(-25deg); opacity: 0; }
+        15%  { opacity: 1; }
+        45%  { transform: translate(220px, 120px) rotate(-25deg); opacity: 1; }
+        60%, 100% { transform: translate(220px, 120px) rotate(-25deg); opacity: 0; }
+      }
+
+      .beam-pass-dark { 
+        animation: sweepLayerBeam 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite; 
+        mix-blend-mode: color-dodge;
+        filter: url(#ultraBeamGlowDark);
+      }
+
+      /* Staggered Delay for Top -> Mid -> Base Pass */
+      .pass-top  { animation-delay: 0.0s; }
+      .pass-mid  { animation-delay: 0.25s; }
+      .pass-base { animation-delay: 0.5s; }
+      ]]>
+    </style>
+
+    <radialGradient id="darkGlowBeam" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Ultra-Luminous Beam Gradient -->
+    <linearGradient id="brightBeamGradDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#7dd3fc" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="80%" stop-color="#7dd3fc" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="topBeamDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="midBeamDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="baseBeamDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Individual Layer Clips -->
+    <clipPath id="clipTopLayerDark">
+      <path d="M 400,246 L 520,306 A 20,20 0 0,1 520,326 L 400,386 A 20,20 0 0,1 380,386 L 260,326 A 20,20 0 0,1 260,306 L 380,246 A 20,20 0 0,1 400,246 Z"/>
+    </clipPath>
+    <clipPath id="clipMidLayerDark">
+      <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z"/>
+    </clipPath>
+    <clipPath id="clipBaseLayerDark">
+      <path d="M 400,314 L 520,374 A 20,20 0 0,1 520,394 L 400,454 A 20,20 0 0,1 380,454 L 260,394 A 20,20 0 0,1 260,374 L 380,314 A 20,20 0 0,1 400,314 Z"/>
+    </clipPath>
+  </defs>
+
+  <circle cx="400" cy="320" r="300" fill="url(#darkGlowBeam)"/>
+
+  <!-- Static Stack Base -->
+  <g transform="translate(0, 34)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#baseBeamDark)" stroke="#1e293b" stroke-width="0.5"/>
+  </g>
+  <g transform="translate(0, 0)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#midBeamDark)"/>
+  </g>
+  <g transform="translate(0, -34)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#topBeamDark)"/>
+  </g>
+
+  <!-- Individual Beam Passes per Layer -->
+  <g clip-path="url(#clipTopLayerDark)">
+    <rect class="beam-pass-dark pass-top" x="310" y="80" width="180" height="500" fill="url(#brightBeamGradDark)"/>
+  </g>
+  <g clip-path="url(#clipMidLayerDark)">
+    <rect class="beam-pass-dark pass-mid" x="310" y="110" width="180" height="500" fill="url(#brightBeamGradDark)"/>
+  </g>
+  <g clip-path="url(#clipBaseLayerDark)">
+    <rect class="beam-pass-dark pass-base" x="310" y="140" width="180" height="500" fill="url(#brightBeamGradDark)"/>
+  </g>
+
+  <text x="400" y="515" font-family="'Inter', sans-serif" font-size="52" font-weight="700" fill="#e2e8f0" text-anchor="middle" letter-spacing="-0.5">Prism<tspan font-weight="800" fill="#60a5fa">Desk</tspan></text>
+</svg>

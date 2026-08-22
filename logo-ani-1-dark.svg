@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <style>
+      <![CDATA[
+      @keyframes waveTop {
+        0%, 100% { transform: translate(0px, -34px); filter: drop-shadow(0 0 0px #38bdf8); }
+        15%      { transform: translate(0px, -52px); filter: drop-shadow(0 0 12px #38bdf8); }
+        30%      { transform: translate(0px, -34px); filter: drop-shadow(0 0 0px #38bdf8); }
+      }
+      @keyframes waveMid {
+        0%, 15%  { transform: translate(0px, 0px); filter: drop-shadow(0 0 0px #38bdf8); }
+        30%      { transform: translate(0px, -18px); filter: drop-shadow(0 0 12px #38bdf8); }
+        45%      { transform: translate(0px, 0px); filter: drop-shadow(0 0 0px #38bdf8); }
+        100%     { transform: translate(0px, 0px); filter: drop-shadow(0 0 0px #38bdf8); }
+      }
+      @keyframes waveBase {
+        0%, 30%  { transform: translate(0px, 34px); filter: drop-shadow(0 0 0px #38bdf8); }
+        45%      { transform: translate(0px, 16px); filter: drop-shadow(0 0 12px #38bdf8); }
+        60%      { transform: translate(0px, 34px); filter: drop-shadow(0 0 0px #38bdf8); }
+        100%     { transform: translate(0px, 34px); filter: drop-shadow(0 0 0px #38bdf8); }
+      }
+
+      .wave-top-dark { animation: waveTop 4s ease-in-out infinite; }
+      .wave-mid-dark { animation: waveMid 4s ease-in-out infinite; }
+      .wave-base-dark { animation: waveBase 4s ease-in-out infinite; }
+      ]]>
+    </style>
+
+    <radialGradient id="darkGlowWave" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="topWaveDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="midWaveDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="baseWaveDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="edgeHighlightDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="400" cy="320" r="300" fill="url(#darkGlowWave)"/>
+
+  <g class="wave-base-dark">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#baseWaveDark)" stroke="#1e293b" stroke-width="0.5"/>
+  </g>
+  <g class="wave-mid-dark">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#midWaveDark)"/>
+  </g>
+  <g class="wave-top-dark">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#topWaveDark)"/>
+    <path d="M 380,280 L 400,280 L 520,340" stroke="url(#edgeHighlightDark)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <text x="400" y="515" font-family="'Inter', sans-serif" font-size="52" font-weight="700" fill="#e2e8f0" text-anchor="middle" letter-spacing="-0.5">Prism<tspan font-weight="800" fill="#60a5fa">Desk</tspan></text>
+</svg>

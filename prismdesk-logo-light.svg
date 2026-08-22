@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Gradients for Glass Layers -->
+    <linearGradient id="topLayer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#80d4ff" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#387bf6" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#004be0" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <linearGradient id="midLayer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a92f7" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#1842b0" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <linearGradient id="baseLayer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64748b" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#1e293b" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <!-- Glass Edge Highlight -->
+    <linearGradient id="edgeHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base Plate / Bottom Layer -->
+  <g transform="translate(0, 34)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" 
+          fill="url(#baseLayer)"/>
+  </g>
+
+  <!-- Middle Layer -->
+  <g transform="translate(0, 0)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" 
+          fill="url(#midLayer)"/>
+  </g>
+
+  <!-- Top Glass Layer -->
+  <g transform="translate(0, -34)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" 
+          fill="url(#topLayer)"/>
+    <!-- Top Rim Highlight -->
+    <path d="M 380,280 L 400,280 L 520,340" 
+          stroke="url(#edgeHighlight)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Brand Typography -->
+  <text x="400" y="515" 
+        font-family="'Inter', 'Segoe UI', system-ui, sans-serif" 
+        font-size="52" 
+        font-weight="700" 
+        fill="#0f172a" 
+        text-anchor="middle" 
+        letter-spacing="-0.5">
+    Prism<tspan font-weight="800" fill="#0284c7">Desk</tspan>
+  </text>
+</svg>

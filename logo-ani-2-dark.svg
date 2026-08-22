@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <style>
+      <![CDATA[
+      @keyframes explodeTop {
+        0%, 100% { transform: translate(0px, -34px); }
+        40%, 60% { transform: translate(0px, -80px); }
+      }
+      @keyframes explodeMid {
+        0%, 100% { transform: translate(0px, 0px); }
+        40%, 60% { transform: translate(0px, 0px); }
+      }
+      @keyframes explodeBase {
+        0%, 100% { transform: translate(0px, 34px); }
+        40%, 60% { transform: translate(0px, 80px); }
+      }
+
+      .exp-top-dark { animation: explodeTop 5s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+      .exp-mid-dark { animation: explodeMid 5s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+      .exp-base-dark { animation: explodeBase 5s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+      ]]>
+    </style>
+
+    <radialGradient id="darkGlowExp" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="topExpDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="midExpDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="baseExpDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="edgeHighlightDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="400" cy="320" r="300" fill="url(#darkGlowExp)"/>
+
+  <g class="exp-base-dark">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#baseExpDark)" stroke="#1e293b" stroke-width="0.5"/>
+  </g>
+  <g class="exp-mid-dark">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#midExpDark)"/>
+  </g>
+  <g class="exp-top-dark">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#topExpDark)"/>
+    <path d="M 380,280 L 400,280 L 520,340" stroke="url(#edgeHighlightDark)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <text x="400" y="515" font-family="'Inter', sans-serif" font-size="52" font-weight="700" fill="#e2e8f0" text-anchor="middle" letter-spacing="-0.5">Prism<tspan font-weight="800" fill="#60a5fa">Desk</tspan></text>
+</svg>

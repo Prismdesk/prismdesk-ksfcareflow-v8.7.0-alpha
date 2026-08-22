@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KSF CareFlow - PrismDesk</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" id="app-favicon" type="image/svg+xml" href="prismdesk-logo-dark.svg">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <!-- Left Section -->
+    <div class="nav-left">
+<div class="title-group">
+  <img src="prismdesk-logo-dark.svg" alt="PrismDesk Logo" class="app-logo logo-dark">
+  <img src="prismdesk-logo-light.svg" alt="PrismDesk Logo" class="app-logo logo-light">
+
+  <div class="title-text-container">
+    <h1 class="app-title">KSF CareFlow</h1>
+    <span class="app-version">Ver 8.7.0-alpha - 08/22/2026</span>
+  </div>
+</div>
+
+      <div class="divider"></div>
+
+      <!-- Tools & References Dropdown -->
+      <div class="nav-dropdown">
+        <button class="dropdown-btn">Tools & References <span class="arrow">▼</span></button>
+        <div class="dropdown-content">
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="tool-provider-dir" data-title="Provider Directory">Provider Directory</a>
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="tool-insurance-check" data-title="Insurance Checker">Insurance Checker</a>
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="tool-locations-contacts" data-title="Locations & Contacts">Locations & Contacts</a>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Call Workflows Dropdown -->
+      <div class="nav-dropdown">
+        <button class="dropdown-btn">Call Workflows <span class="arrow">▼</span></button>
+        <div class="dropdown-content">
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="wf-sched-appt" data-title="Schedule Appointment">Schedule Appointment</a>
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="wf-sched-surgery" data-title="Schedule Surgery">Schedule Surgery</a>
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="wf-sched-injection" data-title="Schedule Injection">Schedule Injection</a>
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="wf-resched-appt" data-title="Reschedule Appointment">Reschedule Appointment</a>
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="wf-confirm-appt" data-title="Confirm Appointment">Confirm Appointment</a>
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="wf-cancel-appt" data-title="Cancel Appointment">Cancel Appointment</a>
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="wf-med-request" data-title="Medication Request">Medication Request</a>
+          <a href="#" class="tab-trigger" data-side="left" data-tab-id="wf-referral-inquiry" data-title="Referral Inquiry">Referral Inquiry</a>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Quick Notes Dropdown -->
+      <div class="nav-dropdown">
+        <button class="dropdown-btn">Quick Notes <span class="arrow">▼</span></button>
+        <div class="dropdown-content">
+          <a href="#" class="tab-trigger" data-side="right" data-tab-id="note-eod-report" data-title="EOD Report Doc">EOD Report Doc</a>
+          <a href="#" class="tab-trigger" data-side="right" data-tab-id="note-clinical-history" data-title="Clinical History Inquiry">Clinical History Inquiry</a>
+          <a href="#" class="tab-trigger" data-side="right" data-tab-id="quick-note-bank" data-title="Note Bank">Note Bank</a>
+          <a href="#" class="tab-trigger" data-side="right" data-tab-id="quick-review-sheet" data-title="Daily Review Sheet">Daily Review Sheet</a>
+        </div>
+      </div>
+    </div> <!-- END OF NAV-LEFT -->
+
+    <!-- Right Section -->
+    <div class="nav-right">
+      <div class="search-container">
+        <input type="text" id="global-search-input" placeholder="Search the app..." class="search-input" autocomplete="off">
+        <div id="global-search-results" class="global-search-results"></div>
+      </div>
+      <div class="user-actions-group">
+        <div class="icons-row">
+          <button class="icon-btn" id="settingsBtn" title="Settings">⚙️</button>
+          <button class="icon-btn" id="helpBtn" title="Help">❓</button>
+        </div>
+        
+        <div class="agent-id-container" style="display: flex; align-items: center; gap: 6px;">
+          <label for="agentIdInput" style="font-size: 11px; color: #94a3b8; font-weight: bold;">AGENT ID:</label>
+          <input type="text" id="agentIdInput" class="agent-id-input" placeholder="chemsworth">
+        </div>
+
+      </div>
+    </div> <!-- END OF NAV-RIGHT -->
+  </header>
+
+  <!-- Main Split Display -->
+  <main class="main-container">
+    <!-- Left Workspace Pane -->
+    <section class="pane left-pane" id="leftPane">
+      <div class="tab-bar" id="leftTabBar"></div>
+      <div class="tab-content-area" id="leftContentArea">
+        <div class="empty-state">
+          <img src="logo-ani-2-light.svg" alt="Logo" class="empty-state-logo logo-light">
+          <img src="logo-ani-2-dark.svg" alt="Logo" class="empty-state-logo logo-dark">
+          <p>Select an item from Tools, Workflows, or Settings to open a tab.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resizable Splitter Bar -->
+    <div class="splitter" id="dragSplitter"></div>
+
+    <!-- Right Workspace Pane -->
+    <section class="pane right-pane" id="rightPane">
+      <div class="tab-bar" id="rightTabBar"></div>
+      <div class="tab-content-area" id="rightContentArea">
+        <div class="empty-state">
+          <img src="logo-ani-2-light.svg" alt="Logo" class="empty-state-logo logo-light">
+          <img src="logo-ani-2-dark.svg" alt="Logo" class="empty-state-logo logo-dark">
+          <p>Select an item from Quick Notes to open a tab.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Help Drawer -->
+  <div class="settings-drawer-overlay" id="helpDrawerOverlay">
+    <aside class="settings-drawer" id="helpDrawer">
+      <div class="settings-drawer-header">
+        <h2>Help & Support</h2>
+        <button class="settings-drawer-close" id="helpDrawerClose" title="Close">&times;</button>
+      </div>
+      <div class="settings-drawer-body" id="helpDrawerBody">
+        <div class="help-tab-switcher">
+          <button class="help-tab-btn active" data-help-tab="guide">Navigation Guide</button>
+          <button class="help-tab-btn" data-help-tab="faq">FAQ</button>
+        </div>
+
+        <div class="help-tab-panel active" data-help-panel="guide">
+          <div class="help-section">
+            <h3>1. Getting Started</h3>
+            <p>PrismDesk uses a dual-pane layout. The left pane holds Tools, References, and Call Workflows; the right pane holds Quick Notes items (EOD Report, Note Bank, Daily Review Sheet). Each pane keeps its own set of tabs, so you can have a reference tool open on one side while working a call workflow or logging notes on the other.</p>
+          </div>
+
+          <div class="help-section">
+            <h3>2. Opening & Arranging Tabs</h3>
+            <p>Use the menus in the top bar — <strong>Call Workflows</strong>, <strong>Quick Notes</strong>, and the Tools/References menu — to open items as tabs. Selecting an item opens it in its designated pane and the menu closes automatically. Click a tab to switch to it, or click the <strong>×</strong> on a tab to close it.</p>
+            <p>Open tabs can be <strong>dragged left or right to reorder them</strong> — click and hold a tab, drag it to where you want it, and drop it. This only reorders tabs within the same pane; tabs can't be dragged between the left and right pane.</p>
+          </div>
+
+          <div class="help-section">
+            <h3>3. Global Search</h3>
+            <p>The search bar in the top-right scans the <strong>entire app</strong> as you type — not just menu items. It searches:</p>
+            <ul style="margin: 4px 0 4px 18px; padding: 0;">
+              <li><strong>Menu items</strong> — jumps straight to that tool/workflow tab</li>
+              <li><strong>Provider Directory</strong> — matches on name, title, NPI, MA, Staff Login, Workman's Comp / Self Pay status, body parts covered <em>and</em> excluded, procedures, and clinical rules text. Clicking a result opens that provider's full detail view directly.</li>
+              <li><strong>Insurance Checker</strong> — matches on plan name and status. Clicking a result opens the tab and filters the list down to that plan.</li>
+              <li><strong>Locations, Contacts & Surgery Schedulers</strong> — clicking a result opens Locations & Contacts and scrolls to / briefly highlights the matching row.</li>
+              <li><strong>Note Bank</strong> — searches the full saved text of every note, not just what's visible on the card.</li>
+              <li><strong>Daily Review Sheet</strong> — matches on name, DOB, or chart number.</li>
+            </ul>
+            <p>Results are grouped by category with the matched text highlighted. Use <strong>↑ / ↓</strong> to move through results and <strong>Enter</strong> to jump to the highlighted one, or click any result directly. Press <strong>Escape</strong> or click elsewhere to close the dropdown.</p>
+          </div>
+
+          <div class="help-section">
+            <h3>4. Agent ID</h3>
+            <p>The <strong>AGENT ID</strong> field in the top-right (also editable from Settings, under "Agent Name / ID" — both stay in sync) is used by the <strong>Clinical History Inquiry</strong> tool, where it's automatically appended to the end of the generated summary line so the output is traceable to whoever pulled it. It's saved automatically and persists across sessions.</p>
+          </div>
+
+          <div class="help-section">
+            <h3>5. EOD Report & Call Dispositions</h3>
+            <p>Paste raw patient info to auto-parse Name/DOB/Chart#/Phone, select the applicable call disposition(s) (hover each for a description of what it covers), and write your agent notes. Disposition selection is based on the caller's <strong>original intent</strong>, even if the call resolved differently.</p>
+            <p>A separate <strong>"Add to Daily Review Sheet"</strong> radio group (Schedule / Reschedule / Cancellation / None) lets you also route this entry into the Daily Review Sheet in one step — submitting saves to both Note Bank and, if a category is selected, the Daily Review Sheet at the same time.</p>
+          </div>
+
+          <div class="help-section">
+            <h3>6. Note Bank</h3>
+            <p>Every submitted note lands here, filterable by date range. Each entry can be edited in place — including changing (or setting) its Daily Review Sheet category after the fact, which automatically creates, moves, or removes the linked Daily Review Sheet entry to match. Deleting a note also removes its linked entry, so nothing is left orphaned.</p>
+          </div>
+
+          <div class="help-section">
+            <h3>7. Daily Review Sheet</h3>
+            <p>Mirrors your spreadsheet's three columns — Schedule, Reschedule, Cancellation. Each entry can be edited, copied individually, or copied as a whole column via <strong>Copy All</strong> (formatted so pasting into Excel/Sheets keeps each entry as one properly wrapped cell, not split across rows). Use the <strong>date filter</strong> to narrow which entries show, copy, or export; leaving it blank includes everything. <strong>Export All to Excel</strong> downloads a real .xlsx file with one sheet per column. <strong>Clear All</strong> wipes every entry (with a confirmation prompt) and automatically unlinks any Note Bank entries pointing at what was cleared.</p>
+          </div>
+
+          <div class="help-section">
+            <h3>8. Provider Directory & Insurance Checker</h3>
+            <p>Both tools support adding, editing, and removing entries — changes save automatically and persist across tab closes and page reloads. Provider cards show Name/Title/NPI, MA/Workman's Comp/Self Pay/Staff Login, and body parts covered/excluded at a glance; click a card for the full detail view. In Insurance Checker, use the toggle action to move a plan between Accepted and Unaccepted.</p>
+          </div>
+
+          <div class="help-section">
+            <h3>9. Settings</h3>
+            <p>Click the ⚙️ icon to open Settings in a slide-out panel. From here you can switch between light and dark mode (the browser tab's favicon updates to match automatically), adjust font size, set your Agent Name/ID, and export your activity log. Closing the panel fully collapses it — nothing stays open in the background.</p>
+          </div>
+        </div>
+
+        <div class="help-tab-panel" data-help-panel="faq">
+          <div class="help-faq-item">
+            <div class="help-faq-q">How do I switch between light and dark mode?</div>
+            <div class="help-faq-a">Open Settings (⚙️ icon, top right) and use the theme toggle. Your choice is saved automatically, and the browser tab's icon updates to match.</div>
+          </div>
+          <div class="help-faq-item">
+            <div class="help-faq-q">What all does the search bar actually search?</div>
+            <div class="help-faq-a">Everything: menu items, Provider Directory (including MA, NPI, Staff Login, body parts, and procedures), Insurance Checker, Locations & Contacts, Surgery Schedulers, Note Bank content, and Daily Review Sheet entries. Clicking a result takes you straight to the matching item, not just the tab.</div>
+          </div>
+          <div class="help-faq-item">
+            <div class="help-faq-q">How do I find a location's address or phone number quickly?</div>
+            <div class="help-faq-a">Type the location or contact name into the top search bar. Clicking the result opens Locations & Contacts and scrolls straight to it.</div>
+          </div>
+          <div class="help-faq-item">
+            <div class="help-faq-q">How can I tell if an insurance plan is accepted?</div>
+            <div class="help-faq-a">Search the plan name in the top search bar — its status (Accepted/Unaccepted) shows right under the name in the dropdown. Clicking it opens Insurance Checker filtered to just that plan.</div>
+          </div>
+          <div class="help-faq-item">
+            <div class="help-faq-q">What does the AGENT ID field actually do?</div>
+            <div class="help-faq-a">It's appended automatically to the summary line generated by the Clinical History Inquiry tool. It's shared with Settings — updating it in either place updates both — and saves automatically.</div>
+          </div>
+          <div class="help-faq-item">
+            <div class="help-faq-q">Why did a tab I closed lose its info?</div>
+            <div class="help-faq-a">Most tabs reset when closed and reopened, but Note Bank, Daily Review Sheet, Insurance Checker, and Provider Directory all save automatically and persist across tab closes and page reloads.</div>
+          </div>
+          <div class="help-faq-item">
+            <div class="help-faq-q">I have a lot of tabs open — how do I organize them?</div>
+            <div class="help-faq-a">Drag a tab left or right to reorder it within its pane. The tab bar also scrolls horizontally if you have more open than fit. Reopening an item that's already open just switches to it instead of duplicating it.</div>
+          </div>
+          <div class="help-faq-item">
+            <div class="help-faq-q">Can I open the same tool on both panes at once?</div>
+            <div class="help-faq-a">Each tool is assigned to a specific pane (left or right) based on its menu, so it will always open on that side. This keeps reference tools and active workflows separated.</div>
+          </div>
+          <div class="help-faq-item">
+            <div class="help-faq-q">How do I get my Daily Review Sheet entries into the actual spreadsheet?</div>
+            <div class="help-faq-a">Use Copy (single entry) or Copy All (whole column) — both are formatted so a normal paste keeps each entry in one wrapped cell instead of splitting across rows. For a clean, guaranteed-correct result regardless of paste behavior, use "Export All to Excel" to download a real .xlsx file instead.</div>
+          </div>
+          <div class="help-faq-item">
+            <div class="help-faq-q">If I edit a note in Note Bank, does it update the Daily Review Sheet too?</div>
+            <div class="help-faq-a">Yes, if it's linked to one. Changing the category while editing moves it to the right column (or creates/removes the link), and editing the note's text refreshes the linked entry's Name/DOB/Chart# automatically.</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Settings Drawer -->
+  <div class="settings-drawer-overlay" id="settingsDrawerOverlay">
+    <aside class="settings-drawer" id="settingsDrawer">
+      <div class="settings-drawer-header">
+        <h2>Settings</h2>
+        <button class="settings-drawer-close" id="settingsDrawerClose" title="Close">&times;</button>
+      </div>
+      <div class="settings-drawer-body" id="settingsDrawerBody"></div>
+    </aside>
+  </div>
+
+  <!-- INSURANCE CHECKER TEMPLATE -->
+  <template id="tpl-tool-insurance-check">
+    <div class="insurance-checker-container">
+      <!-- Header -->
+      <div class="header">
+        <h1>Insurance Eligibility & Search</h1>
+        <p>Filter, search, or manage insurance plan statuses in real-time.</p>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span class="status-label">Status Tracker:</span>
+        <span class="status-value" id="status-text">No recent modifications</span>
+      </div>
+
+      <!-- Banners Grid -->
+      <div class="banners-grid">
+        <div class="banner banner-rates">
+          <div><strong>Self-Pay Rates:</strong></div>
+          <div>• Ortho Self-Pay: <strong>$299.00</strong> (20% Disc: $240.00)</div>
+          <div>• Dr. Hulen & Approved Pain Mgmt: <strong>$456.00</strong> (20% Disc: $380.00)</div>
+        </div>
+        <div class="banner banner-restrictions">
+          <div><strong>General Restrictions:</strong></div>
+          <ul>
+            <li>HMOs generally require PCP Referral w/ Authorization.</li>
+            <li>DO NOT accept Amerigroup/Wellpoint, Tricare, or Wellcare for Therapy.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Form Card -->
+      <div class="form-card">
+        <h2><span>+</span> Add New Insurance Plan</h2>
+        <div class="form-group">
+          <label>Plan Name / Description:</label>
+          <input type="text" id="new-plan-name" placeholder="e.g. Aetna HMO (Referral Rqrd)">
+        </div>
+        <div class="form-group">
+          <label>Plan Category:</label>
+          <select id="new-plan-category">
+            <option value="Accepted">Accepted Plan</option>
+            <option value="Unaccepted">Unaccepted Plan</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" id="btn-save-plan">💾 Save Plan</button>
+          <button class="btn btn-secondary" id="btn-clear-form">Clear</button>
+        </div>
+      </div>
+
+      <!-- Search Group -->
+      <div class="search-group">
+        <label>Search Plan Name or Category:</label>
+        <input type="text" id="search-input" placeholder="e.g., Aetna, BCBS, WellMed, Medicaid...">
+      </div>
+
+      <!-- Columns Grid -->
+      <div class="plans-columns">
+        <!-- Accepted Column -->
+        <div class="column column-accepted">
+          <div class="column-header">Accepted Insurance Plans</div>
+          <div id="accepted-list"></div>
+        </div>
+
+        <!-- Unaccepted Column -->
+        <div class="column column-unaccepted">
+          <div class="column-header">Unaccepted Insurance Plans</div>
+          <div id="unaccepted-list"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- WIZARD TEMPLATE FOR SCHEDULE APPOINTMENT -->
+  <template id="tpl-wf-sched-appt">
+    <div class="wizard-container">
+      
+      <!-- CLICKABLE STEP NAVIGATION BAR -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-step-btn active" data-step="1">
+          <span class="step-num">STEP 1</span>
+          <span class="step-label">Complaint</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="2">
+          <span class="step-num">STEP 2</span>
+          <span class="step-label">Screening</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="3">
+          <span class="step-num">STEP 3</span>
+          <span class="step-label">Status</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="4">
+          <span class="step-num">STEP 4</span>
+          <span class="step-label">Doctor</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="5">
+          <span class="step-num">STEP 5</span>
+          <span class="step-label">Clinical</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="6">
+          <span class="step-num">STEP 6</span>
+          <span class="step-label">Recap</span>
+        </button>
+      </div>
+
+      <!-- WIZARD STEP PANELS -->
+      <div class="wizard-body">
+
+        <!-- STEP 1: COMPLAINT -->
+        <div class="wizard-panel active" data-panel="1">
+          <span class="step-tag">STEP 1 OF 6</span>
+          <h2>Greeting & Chief Complaint</h2>
+          <div class="script-box">
+            "Hi, thank you for calling KSF, my name is <strong class="sync-agent-id">agent</strong>, how can I help you?"
+          </div>
+          <div class="script-box secondary">
+            "I'd be happy to help you with that, may I know which body part is bothering you?"
+          </div>
+          <div class="form-group" style="max-width: 300px; margin-top: 15px;">
+            <label for="wiz-body-part">Select Affected Body Part:</label>
+            <select id="wiz-body-part" class="wiz-input">
+              <option value="">-- Choose Body Part --</option>
+              <option value="Neck">Neck</option>
+              <option value="Spine">Spine</option>
+              <option value="Upper Back">Upper back</option>
+              <option value="Lower Back">Lower back</option>
+              <option value="Left Shoulder">Left Shoulder</option>
+              <option value="Right Shoulder">Right Shoulder</option>
+              <option value="Left Arm">Left Arm</option>
+              <option value="Right Arm">Right Arm</option>
+              <option value="Left Elbow">Left Elbow</option>
+              <option value="Right Elbow">Right Elbow</option>
+              <option value="Left Hand">Left Hand</option>
+              <option value="Right Hand">Right Hand</option>
+              <option value="Left Wrist">Left Wrist</option>
+              <option value="Right Wrist">Right Wrist</option>
+              <option value="Hip">Hip</option>
+              <option value="Left Knee">Left Knee</option>
+              <option value="Right Knee">Right Knee</option>
+              <option value="Left Foot">Left Foot</option>
+              <option value="Right Foot">Right Foot</option>
+              <option value="Left Ankle">Left Ankle</option>
+              <option value="Right Ankle">Right Ankle</option>
+            </select>
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: SCREENING -->
+        <div class="wizard-panel" data-panel="2">
+          <span class="step-tag">STEP 2 OF 6</span>
+          <h2>Injury Classification Screening</h2>
+          <div class="script-box">
+            "Is the visit related to a work injury or vehicular related accident?"
+          </div>
+          <div class="btn-group-options" style="margin-top: 15px;">
+            <button type="button" class="btn btn-option" data-injury="work">Work Related</button>
+            <button type="button" class="btn btn-option" data-injury="auto">Vehicular Related Accident</button>
+            <button type="button" class="btn btn-option active" data-injury="standard">Neither (Standard / Self-Pay)</button>
+          </div>
+          <div id="wiz-injury-alert" class="alert-box danger" style="display: none; margin-top: 15px;"></div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: STATUS -->
+        <div class="wizard-panel" data-panel="3">
+          <span class="step-tag">STEP 3 OF 6</span>
+          <h2>Patient Status & Referral Check</h2>
+          <div class="script-box">
+            "May I please have your full name and date of birth?"
+          </div>
+          <div class="script-box secondary">
+            "Please confirm the phone number. What is the name of your insurance?"
+          </div>
+          <div class="form-section">
+            <p class="section-label">"Have you visited us before?"</p>
+            <div class="btn-group-options">
+              <button type="button" class="btn btn-option active" data-status="established">Yes - Established Patient</button>
+              <button type="button" class="btn btn-option" data-status="new">No - New Patient</button>
+            </div>
+          </div>
+          <div class="form-group" style="max-width: 350px; margin-top: 15px;">
+            <label for="wiz-insurance-type">Determine Insurance Type:</label>
+            <select id="wiz-insurance-type" class="wiz-input">
+              <option value="commercial">Commercial / PPO / Other</option>
+              <option value="hmo">HMO Plan</option>
+            </select>
+          </div>
+          <div id="wiz-insurance-alert" class="alert-box info" style="display: none; margin-top: 15px;"></div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Proceed to Doctor Selection & Availability &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: DOCTOR -->
+        <div class="wizard-panel" data-panel="4">
+          <span class="step-tag">STEP 4 OF 6</span>
+          <h2>Doctor Selection & Availability</h2>
+          <div class="alert-box info">
+            <strong>athenaOne Action:</strong> Check athenaHealth for established patients. If this is a new patient or a new problem to the doctor, follow up route to recent doctor.
+          </div>
+          <div class="alert-box warning" style="margin-top: 8px;">
+            <strong>Appointment Rule:</strong> Offer physician availability (offer only up to 3 suggestions).
+          </div>
+          <div class="form-group" style="max-width: 450px; margin-top: 15px;">
+            <label for="wiz-physician">Assigned Doctor:</label>
+            <select id="wiz-physician" class="wiz-input">
+              <option value="">-- Select Physician --</option>
+              <option value="Dr. Michael S. George">Dr. Michael S. George (Orthopedic Sports Medicine / Arthroscopic Surgery)</option>
+              <option value="Dr. Stewart Dean">Dr. Stewart Dean (General Orthopedics / Sports Medicine)</option>
+              <option value="Dr. Timothy Miller">Dr. Timothy Miller (Foot & Ankle Surgery / General Orthopedics)</option>
+              <option value="Dr. Adam Shar">Dr. Adam Shar (Orthopedic Surgery / Hand & Upper Extremity Surgery)</option>
+              <option value="Dr. Qingwu Kong">Dr. Qingwu Kong (Orthopedic Total Joint Replacement Surgeon)</option>
+              <option value="Dr. Christopher Hulen">Dr. Christopher Hulen (Spine Surgery)</option>
+              <option value="Dr. Mayur Kanjia">Dr. Mayur Kanjia (Pain Management / Anesthesiology)</option>
+              <option value="Dr. Taylor Lewis">Dr. Taylor Lewis (Pain Management / Anesthesiology / Cancer Associated Pain)</option>
+            </select>
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Proceed to Clinical History &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 5: CLINICAL HISTORY -->
+        <div class="wizard-panel" data-panel="5">
+          <span class="step-tag">STEP 5 OF 6</span>
+          <h2>Clinical History Inquiry</h2>
+          <div class="clinical-checkbox-grid">
+            <label class="wiz-checkbox"><input type="checkbox" id="wiz-xray"> X-Ray Available</label>
+            <label class="wiz-checkbox"><input type="checkbox" id="wiz-mri"> MRI Available</label>
+          </div>
+          <div class="script-box" style="margin-top: 12px;">
+            "Have you undergone any surgeries on this area before?"
+          </div>
+          <div class="form-group inline" style="margin-top: 8px;">
+            <label class="wiz-checkbox"><input type="checkbox" id="wiz-sx"> Prior Surgery on area</label>
+            <label class="wiz-checkbox"><input type="checkbox" id="wiz-dr-shar"> Seeing Dr. Shar?</label>
+          </div>
+          <div class="script-box" style="margin-top: 12px;">
+            "Do you wear glasses, contact lens, or hearing aid?"
+          </div>
+          <div class="assistive-devices-group" style="margin-top: 8px;">
+            <label class="wiz-checkbox"><input type="checkbox" id="wiz-dev-glasses"> Glasses</label>
+            <label class="wiz-checkbox"><input type="checkbox" id="wiz-dev-contacts"> Contact Lens</label>
+            <label class="wiz-checkbox"><input type="checkbox" id="wiz-dev-hearing"> Hearing Aid</label>
+            <label class="wiz-checkbox"><input type="checkbox" id="wiz-dev-none"> None</label>
+          </div>
+          <div class="form-group" style="margin-top: 15px;">
+            <label for="wiz-clinical-summary-output">CLINICAL HISTORY SUMMARY</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="wiz-clinical-summary-output" class="wiz-input" readonly placeholder="Summary will generate here...">
+              <button type="button" class="btn btn-secondary" id="wiz-copy-summary">Copy Code</button>
+            </div>
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Proceed to Recap & Close &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 6: RECAP & CLOSING -->
+        <div class="wizard-panel" data-panel="6">
+          <span class="step-tag">STEP 6 OF 6</span>
+          <h2>Recap & Closing</h2>
+          <div class="recap-summary-card">
+            <div class="recap-header">
+              <h3 style="margin: 0;">Call Details Recap</h3>
+              <span class="badge-blue">SCHEDULE</span>
+            </div>
+            <div class="recap-grid" style="margin-top: 10px;">
+              <div><strong>Caller Concern:</strong> <span id="recap-body-part">Affected Area</span></div>
+              <div><strong>Assigned Doctor:</strong> <span id="recap-doctor">Assigned Physician</span></div>
+              <div style="grid-column: 1 / -1;"><strong>Clinical History Summary:</strong></div>
+              <div style="grid-column: 1 / -1;">
+                <code id="recap-summary-code" class="recap-summary-code">NP / Affected Area / nxray / nmri / nsx / nwr / ncr / agent</code>
+              </div>
+            </div>
+          </div>
+          <div class="script-box success" style="margin-top: 15px;">
+            <p class="script-title">Recap Script to Read to Caller:</p>
+            "Alright, to recap: We have scheduled your appointment with <strong id="recap-script-doctor">[Assigned Physician]</strong> for <strong id="recap-script-body-part">[Affected Area]</strong>. Please remember to bring any X-rays/MRIs or imaging CDs with you."
+          </div>
+          <div class="alert-box warning" style="margin-top: 12px;">
+            <strong>Clinic Arrival Reminder:</strong> "Please remember to arrive at the clinic <strong>15 minutes before</strong> your appointment time."
+          </div>
+          <div class="script-box secondary" style="margin-top: 12px;">
+            <p class="script-title">Closing Inquiry & Branding:</p>
+            "Is there anything else I can help you with today? ... Thank you for calling KSF Orthopedics, have a great day!"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-success" id="wiz-reset-call">Complete & Start Next Call</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-wf-resched-appt">
+    <div class="wizard-container">
+
+      <!-- CLICKABLE STEP NAVIGATION BAR -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-step-btn active" data-step="1">
+          <span class="step-num">STEP 1</span>
+          <span class="step-label">Greeting</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="2">
+          <span class="step-num">STEP 2</span>
+          <span class="step-label">Verify</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="3">
+          <span class="step-num">STEP 3</span>
+          <span class="step-label">Details & Reason</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="4">
+          <span class="step-num">STEP 4</span>
+          <span class="step-label">Recap</span>
+        </button>
+      </div>
+
+      <!-- WIZARD STEP PANELS -->
+      <div class="wizard-body">
+
+        <!-- STEP 1: GREETING -->
+        <div class="wizard-panel active" data-panel="1">
+          <span class="step-tag">STEP 1 OF 4</span>
+          <h2>Greeting & Chief Complaint</h2>
+          <div class="script-box">
+            "Hi, thank you for calling KSF, my name is <strong class="sync-agent-id">agent</strong>, how can I help you?"
+          </div>
+          <div class="script-box secondary">
+            "I'd be happy to help you with that."
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: VERIFY -->
+        <div class="wizard-panel" data-panel="2">
+          <span class="step-tag">STEP 2 OF 4</span>
+          <h2>Verify Patient Information</h2>
+          <div class="script-box">
+            "May I please have your full name and date of birth?"
+          </div>
+          <div class="script-box secondary">
+            "Please confirm the phone number. What is the name of your insurance?"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: DETAILS & REASON -->
+        <div class="wizard-panel" data-panel="3">
+          <span class="step-tag">STEP 3 OF 4</span>
+          <h2>Appointment Details & Reason for Reschedule</h2>
+          <div class="script-box">
+            "Confirm which appointment they want to reschedule."
+          </div>
+          <div class="form-group" style="margin-top: 10px;">
+            <label for="rwiz-existing-appt">Confirmed Existing Appointment Details:</label>
+            <input type="text" id="rwiz-existing-appt" class="wiz-input" placeholder="e.g. Oct 12 with Dr. George at Willowbrook">
+          </div>
+          <div class="script-box secondary" style="margin-top: 12px;">
+            "May I know the reason you need to reschedule?"
+          </div>
+          <div class="form-group" style="margin-top: 10px;">
+            <label for="rwiz-reason">Reason for Reschedule:</label>
+            <input type="text" id="rwiz-reason" class="wiz-input" placeholder="e.g. Work conflict, illness, transportation issue...">
+          </div>
+          <div class="alert-box warning" style="margin-top: 12px;">
+            <strong>athenaOne Action:</strong> Search calendar and offer new appointment slots. Set new schedule in system.
+          </div>
+          <div class="form-group" style="max-width: 450px; margin-top: 15px;">
+            <label for="rwiz-physician">Assigned Doctor for New Slot:</label>
+            <select id="rwiz-physician" class="wiz-input">
+              <option value="">-- Select Physician --</option>
+              <option value="Dr. Michael S. George">Dr. Michael S. George (Orthopedic Sports Medicine / Arthroscopic Surgery)</option>
+              <option value="Dr. Stewart Dean">Dr. Stewart Dean (General Orthopedics / Sports Medicine)</option>
+              <option value="Dr. Timothy Miller">Dr. Timothy Miller (Foot & Ankle Surgery / General Orthopedics)</option>
+              <option value="Dr. Adam Shar">Dr. Adam Shar (Orthopedic Surgery / Hand & Upper Extremity Surgery)</option>
+              <option value="Dr. Qingwu Kong">Dr. Qingwu Kong (Orthopedic Total Joint Replacement Surgeon)</option>
+              <option value="Dr. Christopher Hulen">Dr. Christopher Hulen (Spine Surgery)</option>
+              <option value="Dr. Mayur Kanjia">Dr. Mayur Kanjia (Pain Management / Anesthesiology)</option>
+              <option value="Dr. Taylor Lewis">Dr. Taylor Lewis (Pain Management / Anesthesiology / Cancer Associated Pain)</option>
+            </select>
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Proceed to Recap & Closing &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: RECAP & CLOSING -->
+        <div class="wizard-panel" data-panel="4">
+          <span class="step-tag">STEP 4 OF 4</span>
+          <h2>Recap & Closing</h2>
+          <div class="recap-summary-card">
+            <div class="recap-header">
+              <h3 style="margin: 0;">Call Details Recap</h3>
+              <span class="badge-amber">RESCHEDULE</span>
+            </div>
+            <div class="recap-grid" style="margin-top: 10px;">
+              <div><strong>Original Appointment:</strong> <span id="recap-existing-appt">Not specified</span></div>
+              <div><strong>Reason:</strong> <span id="recap-reason">Not specified</span></div>
+              <div style="grid-column: 1 / -1;"><strong>New Assigned Doctor:</strong> <span id="recap-resched-doctor">Assigned Physician</span></div>
+            </div>
+          </div>
+          <div class="script-box success" style="margin-top: 15px;">
+            <p class="script-title">Recap Script to Read to Caller:</p>
+            "Alright, we have successfully rescheduled your appointment with <strong id="recap-resched-script-doctor">your physician</strong>."
+          </div>
+          <div class="alert-box warning" style="margin-top: 12px;">
+            <strong>Clinic Arrival Reminder:</strong> "Please remember to arrive at the clinic <strong>15 minutes before</strong> your appointment time."
+          </div>
+          <div class="script-box secondary" style="margin-top: 12px;">
+            <p class="script-title">Closing Inquiry & Branding:</p>
+            "Is there anything else I can help you with today? ... Thank you for calling KSF Orthopedics, have a great day!"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-success" id="rwiz-reset-call">Complete & Start Next Call</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-wf-cancel-appt">
+    <div class="wizard-container">
+
+      <!-- CLICKABLE STEP NAVIGATION BAR -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-step-btn active" data-step="1">
+          <span class="step-num">STEP 1</span>
+          <span class="step-label">Greeting</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="2">
+          <span class="step-num">STEP 2</span>
+          <span class="step-label">Verify</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="3">
+          <span class="step-num">STEP 3</span>
+          <span class="step-label">Details & Reason</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="4">
+          <span class="step-num">STEP 4</span>
+          <span class="step-label">Recap</span>
+        </button>
+      </div>
+
+      <!-- WIZARD STEP PANELS -->
+      <div class="wizard-body">
+
+        <!-- STEP 1: GREETING -->
+        <div class="wizard-panel active" data-panel="1">
+          <span class="step-tag">STEP 1 OF 4</span>
+          <h2>Greeting & Chief Complaint</h2>
+          <div class="script-box">
+            "Hi, thank you for calling KSF, my name is <strong class="sync-agent-id">agent</strong>, how can I help you?"
+          </div>
+          <div class="script-box secondary">
+            "I'd be happy to help you with that."
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: VERIFY -->
+        <div class="wizard-panel" data-panel="2">
+          <span class="step-tag">STEP 2 OF 4</span>
+          <h2>Verify Patient Information</h2>
+          <div class="script-box">
+            "May I please have your full name and date of birth?"
+          </div>
+          <div class="script-box secondary">
+            "Please confirm the phone number. What is the name of your insurance?"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: DETAILS & REASON -->
+        <div class="wizard-panel" data-panel="3">
+          <span class="step-tag">STEP 3 OF 4</span>
+          <h2>Appointment Details & Reason for Cancellation</h2>
+          <div class="script-box">
+            "Confirm which appointment they want to cancel."
+          </div>
+          <div class="form-group" style="margin-top: 10px;">
+            <label for="cwiz-existing-appt">Confirmed Existing Appointment Details:</label>
+            <input type="text" id="cwiz-existing-appt" class="wiz-input" placeholder="e.g. Oct 12 with Dr. George at Willowbrook">
+          </div>
+          <div class="script-box secondary" style="margin-top: 12px;">
+            "May I know the reason for the cancellation?"
+          </div>
+          <div class="form-group" style="margin-top: 10px;">
+            <label for="cwiz-reason">Reason for Cancellation:</label>
+            <input type="text" id="cwiz-reason" class="wiz-input" placeholder="e.g. Feeling better, moved, insurance change...">
+          </div>
+          <div class="alert-box warning" style="margin-top: 12px;">
+            <strong>athenaOne Action:</strong> Locate appointment on schedule and execute Cancellation in system.
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Proceed to Recap & Closing &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: RECAP & CLOSING -->
+        <div class="wizard-panel" data-panel="4">
+          <span class="step-tag">STEP 4 OF 4</span>
+          <h2>Recap & Closing</h2>
+          <div class="recap-summary-card">
+            <div class="recap-header">
+              <h3 style="margin: 0;">Call Details Recap</h3>
+              <span class="badge-red">CANCEL</span>
+            </div>
+            <div class="recap-grid" style="margin-top: 10px;">
+              <div><strong>Cancelled Appointment:</strong> <span id="recap-cancel-appt">Not specified</span></div>
+              <div><strong>Reason:</strong> <span id="recap-cancel-reason">Not specified</span></div>
+            </div>
+          </div>
+          <div class="script-box success" style="margin-top: 15px;">
+            <p class="script-title">Recap Script to Read to Caller:</p>
+            "Alright, we have processed the cancellation of your appointment as requested."
+          </div>
+          <div class="script-box secondary" style="margin-top: 12px;">
+            <p class="script-title">Closing Inquiry & Branding:</p>
+            "Is there anything else I can help you with today? ... Thank you for calling KSF Orthopedics, have a great day!"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-success" id="cwiz-reset-call">Complete & Start Next Call</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-wf-confirm-appt">
+    <div class="wizard-container">
+
+      <!-- CLICKABLE STEP NAVIGATION BAR -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-step-btn active" data-step="1">
+          <span class="step-num">STEP 1</span>
+          <span class="step-label">Greeting</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="2">
+          <span class="step-num">STEP 2</span>
+          <span class="step-label">Verify</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="3">
+          <span class="step-num">STEP 3</span>
+          <span class="step-label">Details & Reason</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="4">
+          <span class="step-num">STEP 4</span>
+          <span class="step-label">Recap</span>
+        </button>
+      </div>
+
+      <!-- WIZARD STEP PANELS -->
+      <div class="wizard-body">
+
+        <!-- STEP 1: GREETING -->
+        <div class="wizard-panel active" data-panel="1">
+          <span class="step-tag">STEP 1 OF 4</span>
+          <h2>Greeting & Chief Complaint</h2>
+          <div class="script-box">
+            "Hi, thank you for calling KSF, my name is <strong class="sync-agent-id">agent</strong>, how can I help you?"
+          </div>
+          <div class="script-box secondary">
+            "I'd be happy to help you with that."
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: VERIFY -->
+        <div class="wizard-panel" data-panel="2">
+          <span class="step-tag">STEP 2 OF 4</span>
+          <h2>Verify Patient Information</h2>
+          <div class="script-box">
+            "May I please have your full name and date of birth?"
+          </div>
+          <div class="script-box secondary">
+            "Please confirm the phone number. What is the name of your insurance?"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: CONFIRM APPOINTMENT -->
+        <div class="wizard-panel" data-panel="3">
+          <span class="step-tag">STEP 3 OF 4</span>
+          <h2>Confirm Appointment</h2>
+          <div class="alert-box warning">
+            <strong>athenaOne Action:</strong> Verify patient details and mark appointment status as Confirmed in system.
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Proceed to Recap & Closing &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: RECAP & CLOSING -->
+        <div class="wizard-panel" data-panel="4">
+          <span class="step-tag">STEP 4 OF 4</span>
+          <h2>Recap & Closing</h2>
+          <div class="recap-summary-card">
+            <div class="recap-header">
+              <h3 style="margin: 0;">Call Details Recap</h3>
+              <span class="badge-green">CONFIRM</span>
+            </div>
+          </div>
+          <div class="script-box success" style="margin-top: 15px;">
+            <p class="script-title">Recap Script to Read to Caller:</p>
+            "Alright, your appointment has been confirmed."
+          </div>
+          <div class="alert-box warning" style="margin-top: 12px;">
+            <strong>Clinic Arrival Reminder:</strong> "Please remember to arrive at the clinic <strong>15 minutes before</strong> your appointment time."
+          </div>
+          <div class="script-box secondary" style="margin-top: 12px;">
+            <p class="script-title">Closing Inquiry & Branding:</p>
+            "Is there anything else I can help you with today? ... Thank you for calling KSF Orthopedics, have a great day!"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-success" id="cfwiz-reset-call">Complete & Start Next Call</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-wf-med-request">
+    <div class="wizard-container">
+
+      <!-- CLICKABLE STEP NAVIGATION BAR -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-step-btn active" data-step="1">
+          <span class="step-num">STEP 1</span>
+          <span class="step-label">Greeting</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="2">
+          <span class="step-num">STEP 2</span>
+          <span class="step-label">Verify</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="3">
+          <span class="step-num">STEP 3</span>
+          <span class="step-label">Details & Reason</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="4">
+          <span class="step-num">STEP 4</span>
+          <span class="step-label">Recap</span>
+        </button>
+      </div>
+
+      <!-- WIZARD STEP PANELS -->
+      <div class="wizard-body">
+
+        <!-- STEP 1: GREETING -->
+        <div class="wizard-panel active" data-panel="1">
+          <span class="step-tag">STEP 1 OF 4</span>
+          <h2>Greeting & Chief Complaint</h2>
+          <div class="script-box">
+            "Hi, thank you for calling KSF, my name is <strong class="sync-agent-id">agent</strong>, how can I help you?"
+          </div>
+          <div class="script-box secondary">
+            "I'd be happy to help you with your medication request."
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: VERIFY -->
+        <div class="wizard-panel" data-panel="2">
+          <span class="step-tag">STEP 2 OF 4</span>
+          <h2>Verify Patient Information</h2>
+          <div class="script-box">
+            "May I please have your full name and date of birth?"
+          </div>
+          <div class="script-box secondary">
+            "Please confirm the phone number. What is the name of your insurance?"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: MEDICATION REQUEST -->
+        <div class="wizard-panel" data-panel="3">
+          <span class="step-tag">STEP 3 OF 4</span>
+          <h2>Medication Request</h2>
+          <div class="alert-box warning">
+            <strong>athenaOne Action:</strong> Click 'View Chart' in athenaOne&reg; and proceed as per clinical instruction.
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Proceed to Recap & Closing &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: RECAP & CLOSING -->
+        <div class="wizard-panel" data-panel="4">
+          <span class="step-tag">STEP 4 OF 4</span>
+          <h2>Recap & Closing</h2>
+          <div class="recap-summary-card">
+            <div class="recap-header">
+              <h3 style="margin: 0;">Call Details Recap</h3>
+              <span class="badge-purple">MEDICATION</span>
+            </div>
+          </div>
+          <div class="script-box success" style="margin-top: 15px;">
+            <p class="script-title">Recap Script to Read to Caller:</p>
+            "Alright, your medication request has been submitted to clinical staff for review."
+          </div>
+          <div class="script-box secondary" style="margin-top: 12px;">
+            <p class="script-title">Closing Inquiry & Branding:</p>
+            "Is there anything else I can help you with today? ... Thank you for calling KSF Orthopedics, have a great day!"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-success" id="mwiz-reset-call">Complete & Start Next Call</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-wf-referral-inquiry">
+    <div class="wizard-container">
+
+      <!-- CLICKABLE STEP NAVIGATION BAR -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-step-btn active" data-step="1">
+          <span class="step-num">STEP 1</span>
+          <span class="step-label">Greeting</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="2">
+          <span class="step-num">STEP 2</span>
+          <span class="step-label">Verify</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="3">
+          <span class="step-num">STEP 3</span>
+          <span class="step-label">Details & Reason</span>
+        </button>
+        <button type="button" class="wizard-step-btn" data-step="4">
+          <span class="step-num">STEP 4</span>
+          <span class="step-label">Recap</span>
+        </button>
+      </div>
+
+      <!-- WIZARD STEP PANELS -->
+      <div class="wizard-body">
+
+        <!-- STEP 1: GREETING -->
+        <div class="wizard-panel active" data-panel="1">
+          <span class="step-tag">STEP 1 OF 4</span>
+          <h2>Greeting & Chief Complaint</h2>
+          <div class="script-box">
+            "Hi, thank you for calling KSF, my name is <strong class="sync-agent-id">agent</strong>, how can I help you?"
+          </div>
+          <div class="script-box secondary">
+            "I'd be happy to help you with your referral inquiry."
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: VERIFY -->
+        <div class="wizard-panel" data-panel="2">
+          <span class="step-tag">STEP 2 OF 4</span>
+          <h2>Verify Patient Information</h2>
+          <div class="script-box">
+            "May I please have your full name and date of birth?"
+          </div>
+          <div class="script-box secondary">
+            "Please confirm the phone number. What is the name of your insurance?"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Continue &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: REFERRAL STATUS CHECK -->
+        <div class="wizard-panel" data-panel="3">
+          <span class="step-tag">STEP 3 OF 4</span>
+          <h2>Referral Status Check</h2>
+          <div class="alert-box warning">
+            <strong>athenaOne Action:</strong> Scroll down in Patient's Quickview in athenaOne&reg;.
+          </div>
+          <div class="script-box secondary" style="margin-top: 12px;">
+            Check referral status:
+          </div>
+          <div class="referral-status-options" style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+            <button type="button" class="referral-status-btn" data-status="No Referral On File" data-script="There is no referral on file for this visit. Please contact your primary care physician's office to request a referral be sent over." style="background: #ef4444; color: white; border: 2px solid transparent; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; font-size: 13px;">
+              No Referral On File (Advise PCP Contact)
+            </button>
+            <button type="button" class="referral-status-btn" data-status="Referral Expired" data-script="Your referral on file is expired. Please ask your PCP to send a new referral." style="background: #f97316; color: white; border: 2px solid transparent; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; font-size: 13px;">
+              Referral Expired (Advise PCP Contact)
+            </button>
+            <button type="button" class="referral-status-btn" data-status="Referral Valid & Active" data-script="Great news, your referral is valid and active in our system. We're all set to proceed." style="background: #2563eb; color: white; border: 2px solid transparent; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; font-size: 13px;">
+              Referral Valid &amp; Active
+            </button>
+          </div>
+          <div id="refwiz-status-script" class="script-box success" style="margin-top: 12px; display: none;"></div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-primary wiz-next">Proceed to Recap & Closing &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: RECAP & CLOSING -->
+        <div class="wizard-panel" data-panel="4">
+          <span class="step-tag">STEP 4 OF 4</span>
+          <h2>Recap & Closing</h2>
+          <div class="recap-summary-card">
+            <div class="recap-header">
+              <h3 style="margin: 0;">Call Details Recap</h3>
+              <span class="badge-teal">REFERRAL</span>
+            </div>
+            <div class="recap-grid" style="margin-top: 10px;">
+              <div><strong>Referral Status:</strong> <span id="recap-referral-status">Not checked</span></div>
+            </div>
+          </div>
+          <div class="script-box success" style="margin-top: 15px;">
+            <p class="script-title">Recap Script to Read to Caller:</p>
+            "Alright, we have reviewed your referral status in our system."
+          </div>
+          <div class="script-box secondary" style="margin-top: 12px;">
+            <p class="script-title">Closing Inquiry & Branding:</p>
+            "Is there anything else I can help you with today? ... Thank you for calling KSF Orthopedics, have a great day!"
+          </div>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-secondary wiz-prev">&larr; Back</button>
+            <button type="button" class="btn btn-success" id="refwiz-reset-call">Complete & Start Next Call</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-tool-provider-dir">
+    <div class="provider-directory-container" style="padding: 15px;">
+
+      <div id="pd-grid-view">
+        <div class="provider-header-block">
+          <h2 style="margin: 0;">Provider Directory</h2>
+          <p style="margin: 4px 0 0 0; font-size: 12.5px; color: #94a3b8;">Tap a doctor card for full details.</p>
+        </div>
+
+        <div class="provider-toolbar" style="display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0;">
+          <select id="pd-specialty-filter" class="pd-specialty-filter">
+            <option value="">All Specialties</option>
+          </select>
+          <button type="button" id="pd-add-provider" class="btn btn-primary" style="white-space: nowrap;">+ Add</button>
+        </div>
+
+        <div id="pd-results-count" style="font-size: 12px; color: #94a3b8; margin-bottom: 10px;"></div>
+
+        <div id="pd-grid" class="provider-grid"></div>
+      </div>
+
+      <div id="pd-detail-view" style="display: none;"></div>
+
+    </div>
+  </template>
+
+  <!-- LOCATIONS & CONTACTS TEMPLATE -->
+  <template id="tpl-tool-locations-contacts">
+    <div class="locations-contacts-container">
+      <div class="lc-page-title">Locations, Direct Phone Lines & Schedulers</div>
+
+      <!-- Top 2 Column Layout -->
+      <div class="lc-top-grid">
+
+        <!-- KSF Clinic Locations & Directions -->
+        <div class="lc-card">
+          <div class="lc-card-title">🏢 KSF Clinic Locations & Directions</div>
+
+          <div class="lc-location-item">
+            <div class="lc-location-name">Red Oak Location:</div>
+            <div class="lc-location-address">
+              17270 Red Oak Drive Suite 205, Houston, TX 77090
+              <button class="lc-copy-btn" data-copy="17270 Red Oak Drive Suite 205, Houston, TX 77090">📋 Copy Address</button>
+            </div>
+            <div class="lc-location-directions">Directions: I-45 N & FM 1960 Rd (Across street from Bammel Elementary)</div>
+            <div class="lc-location-phone">
+              📞 833-502-2042
+              <button class="lc-copy-btn" data-copy="833-502-2042">📋 Copy</button>
+            </div>
+          </div>
+
+          <div class="lc-location-item">
+            <div class="lc-location-name">Willowbrook Location:</div>
+            <div class="lc-location-address">
+              13333 Dotson Road, Suite 180, Houston, TX 77070
+              <button class="lc-copy-btn" data-copy="13333 Dotson Road, Suite 180, Houston, TX 77070">📋 Copy Address</button>
+            </div>
+            <div class="lc-location-directions">Directions: Hwy 249 & FM 1960 (Same side as Methodist Willowbrook Hospital)</div>
+            <div class="lc-location-phone">
+              📞 833-502-2046
+              <button class="lc-copy-btn" data-copy="833-502-2046">📋 Copy</button>
+            </div>
+          </div>
+
+          <div class="lc-location-item">
+            <div class="lc-location-name">Springwood Village Location:</div>
+            <div class="lc-location-address">
+              2255 East Mossy Oaks Road, Suite 440, Spring, TX 77389
+              <button class="lc-copy-btn" data-copy="2255 East Mossy Oaks Road, Suite 440, Spring, TX 77389">📋 Copy Address</button>
+            </div>
+            <div class="lc-location-directions">Directions: I-45 N & Grand Parkway (99 Tollway) Inside CHI St Lukes</div>
+            <div class="lc-location-phone">
+              📞 833-502-2043
+              <button class="lc-copy-btn" data-copy="833-502-2043">📋 Copy</button>
+            </div>
+          </div>
+
+          <div class="lc-location-item">
+            <div class="lc-location-name">Springwood Village PT:</div>
+            <div class="lc-location-address">
+              2209 Spring Stuebner Road Suite 500, Spring, TX 77389
+              <button class="lc-copy-btn" data-copy="2209 Spring Stuebner Road Suite 500, Spring, TX 77389">📋 Copy Address</button>
+            </div>
+            <div class="lc-location-phone">
+              📞 833-502-2044
+              <button class="lc-copy-btn" data-copy="833-502-2044">📋 Copy</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Central Contacts & Departments -->
+        <div class="lc-card">
+          <div class="lc-card-title">📞 Central Contacts & Departments</div>
+
+          <div class="lc-contact-row">
+            <strong>Main Phone:</strong> (281) 440-6960
+            <button class="lc-copy-btn" data-copy="281-440-6960">📋 Copy</button>
+          </div>
+
+          <div class="lc-contact-row">
+            <strong>NPI:</strong> 1598958431
+          </div>
+
+          <div class="lc-contact-row">
+            <strong>Main Fax:</strong> 281-440-6205
+            <button class="lc-copy-btn" data-copy="281-440-6205">📋 Copy</button>
+            | <strong>Tax ID:</strong> 203-059-260
+          </div>
+
+          <div class="lc-contact-row">
+            <strong>Billing Dept:</strong> 1-800-326-9914
+            <button class="lc-copy-btn" data-copy="1-800-326-9914">📋 Copy</button>
+          </div>
+
+          <div class="lc-contact-row">
+            <strong>MRI Dept:</strong> 281-880-1451
+            <button class="lc-copy-btn" data-copy="281-880-1451">📋 Copy</button>
+            <div class="lc-contact-subtext">(Natalia Fernandez, Madelyn Van Atten)</div>
+          </div>
+
+          <div class="lc-contact-row">
+            <strong>Physical Therapy Dept:</strong> 281-880-1418
+            <button class="lc-copy-btn" data-copy="281-880-1418">📋 Copy</button>
+            <div class="lc-contact-subtext">(Mgr. Alicia Walker, PT)</div>
+          </div>
+
+          <div class="lc-contact-row">
+            <strong>Workers Comp:</strong> Wendy Rodriguez - 281-849-1011
+            <button class="lc-copy-btn" data-copy="281-849-1011">📋 Copy</button>
+          </div>
+
+          <div class="lc-contact-row">
+            <strong>Visco Gel:</strong> Katherine Joya - 281-603-0655
+            <button class="lc-copy-btn" data-copy="281-603-0655">📋 Copy</button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Surgery Schedulers Table -->
+      <div class="lc-table-card">
+        <div class="lc-card-title">🧑‍⚕️ Surgery Schedulers & Precert Staff</div>
+        <table class="lc-table">
+          <thead>
+            <tr>
+              <th>Physician</th>
+              <th>Surgery Scheduler / Precert Contact</th>
+              <th>Phone Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dr. Michael S. George</td>
+              <td>Alicia Martin</td>
+              <td>281-880-1453 <button class="lc-copy-btn" data-copy="281-880-1453">📋 Copy</button></td>
+            </tr>
+            <tr>
+              <td>Dr. Stewart Dean</td>
+              <td>Darlenn Miller</td>
+              <td>281-880-1422 <button class="lc-copy-btn" data-copy="281-880-1422">📋 Copy</button></td>
+            </tr>
+            <tr>
+              <td>Dr. Timothy Miller</td>
+              <td>Courtney Garcia</td>
+              <td>281-880-1474 <button class="lc-copy-btn" data-copy="281-880-1474">📋 Copy</button></td>
+            </tr>
+            <tr>
+              <td>Dr. Adam Shar</td>
+              <td>Jourdan Heard</td>
+              <td>281-880-1402 <button class="lc-copy-btn" data-copy="281-880-1402">📋 Copy</button></td>
+            </tr>
+            <tr>
+              <td>Dr. Qingwu Kong</td>
+              <td>Frances Kelly</td>
+              <td>281-880-1435 <button class="lc-copy-btn" data-copy="281-880-1435">📋 Copy</button></td>
+            </tr>
+            <tr>
+              <td>Dr. Christopher Hulen</td>
+              <td>Tammy Giron</td>
+              <td>281-880-1438 <button class="lc-copy-btn" data-copy="281-880-1438">📋 Copy</button></td>
+            </tr>
+            <tr>
+              <td>Dr. Mayur Kanjia</td>
+              <td>Rebecca Harvey</td>
+              <td>281-880-1479 <button class="lc-copy-btn" data-copy="281-880-1479">📋 Copy</button></td>
+            </tr>
+            <tr>
+              <td>Dr. Taylor Lewis</td>
+              <td>Keashia Williams</td>
+              <td>281-880-1497 <button class="lc-copy-btn" data-copy="281-880-1497">📋 Copy</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Additional Document Details -->
+      <div class="lc-extra-section">
+        <div class="lc-extra-title" data-toggle-extra="true">
+          <span>📋 Additional Document Staff & X-Ray Handles (From Source File)</span>
+          <span class="lc-toggle-icon">▼</span>
+        </div>
+        <div class="lc-extra-content" style="display: none;">
+          <div class="lc-extra-group">
+            <h4>Other Precert / Scheduling Contacts:</h4>
+            <ul>
+              <li>• <strong>Crystal McGraw:</strong> Kanjia, Shar & Miller</li>
+              <li>• <strong>Tammy Walder:</strong> Lewis & Hulen</li>
+              <li>• <strong>Carmen Gonzales:</strong> George</li>
+              <li>• <strong>Harvard Villegas:</strong> Dean & Kong</li>
+            </ul>
+          </div>
+          <div class="lc-extra-group">
+            <h4>Physical Therapy Staff:</h4>
+            <ul>
+              <li>• <strong>Brenda Herrera:</strong> PT</li>
+              <li>• <strong>Donna Gromek:</strong> PT</li>
+              <li>• <strong>Tamara Ulrich:</strong> PT</li>
+              <li>• <strong>Pamela Klapat:</strong> PT</li>
+              <li>• <strong>Nicole Collier:</strong> PTA (Red Oak)</li>
+              <li>• <strong>Andy Gromek:</strong> PTA (Springwoods)</li>
+              <li>• <strong>Emily Brown:</strong> PTA (Willowbrook)</li>
+            </ul>
+          </div>
+          <div class="lc-extra-group" style="grid-column: span 2;">
+            <h4>Location X-Ray Results Handles:</h4>
+            <ul>
+              <li>• <strong>Red Oak:</strong> htxksfroxray <button class="lc-copy-btn" data-copy="htxksfroxray">📋 Copy</button></li>
+              <li>• <strong>Willowbrook:</strong> htxksfwbxray <button class="lc-copy-btn" data-copy="htxksfwbxray">📋 Copy</button></li>
+              <li>• <strong>Springwoods:</strong> htxksfswvxray <button class="lc-copy-btn" data-copy="htxksfswvxray">📋 Copy</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </template>
+
+  <!-- SETTINGS TEMPLATE -->
+  <template id="tpl-settings">
+    <div class="settings-container">
+
+      <div class="settings-section">
+        <div class="settings-section-title">Appearance</div>
+
+        <div class="settings-row">
+          <div class="settings-row-label">
+            <span>Theme</span>
+            <span class="settings-row-hint">Switch between dark and light mode</span>
+          </div>
+          <div class="settings-toggle-group" id="settings-theme-group">
+            <button type="button" class="settings-toggle-btn" data-theme="dark">🌙 Dark</button>
+            <button type="button" class="settings-toggle-btn" data-theme="light">☀️ Light</button>
+          </div>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-row-label">
+            <span>Text Size</span>
+            <span class="settings-row-hint">Adjust app-wide text size</span>
+          </div>
+          <div class="settings-toggle-group" id="settings-font-group">
+            <button type="button" class="settings-toggle-btn" data-font="small">Small</button>
+            <button type="button" class="settings-toggle-btn" data-font="medium">Medium</button>
+            <button type="button" class="settings-toggle-btn" data-font="large">Large</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Agent Info</div>
+        <div class="settings-row settings-row-stacked">
+          <label class="settings-row-label" for="settings-agent-id">
+            <span>Agent Name / ID</span>
+            <span class="settings-row-hint">Used to auto-fill your EOD reports</span>
+          </label>
+          <input type="text" id="settings-agent-id" class="settings-input" placeholder="e.g. J. Smith or Agent #204">
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">
+          Activity Log
+          <span class="settings-log-count" id="settings-log-count">0 entries</span>
+        </div>
+        <div class="settings-row-hint settings-log-subtext">Logs are kept for 30 days, then removed automatically.</div>
+
+        <div class="settings-log-list" id="settings-log-list"></div>
+
+        <div class="settings-actions">
+          <button type="button" class="btn btn-secondary" id="settings-export-log">⬇️ Export Log</button>
+          <button type="button" class="btn settings-btn-danger" id="settings-clear-logs">🗑️ Clear Logs</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Data Management</div>
+        <div class="settings-row">
+          <div class="settings-row-label">
+            <span>Note Bank</span>
+            <span class="settings-row-hint">Permanently clear all saved notes</span>
+          </div>
+          <button type="button" class="btn settings-btn-danger" id="settings-clear-notebank">🗑️ Clear Note Bank</button>
+        </div>
+      </div>
+
+    </div>
+  </template>
+
+  <script src="xlsx.full.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

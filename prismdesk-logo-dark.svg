@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Ambient Glow for Dark Mode Contrast -->
+    <radialGradient id="darkBgGlow" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#0077ff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0077ff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gradients for Glass Layers (Dark Mode Tuned) -->
+    <linearGradient id="topLayerDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="1"/>
+    </linearGradient>
+
+    <linearGradient id="midLayerDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#1e40af" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <linearGradient id="baseLayerDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Glass Edge Highlights -->
+    <linearGradient id="edgeHighlightDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Glow Behind Stack -->
+  <circle cx="400" cy="280" r="260" fill="url(#darkBgGlow)" />
+
+  <!-- Base Plate / Bottom Layer -->
+  <g transform="translate(0, 34)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" 
+          fill="url(#baseLayerDark)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.4"/>
+  </g>
+
+  <!-- Middle Layer -->
+  <g transform="translate(0, 0)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" 
+          fill="url(#midLayerDark)"/>
+  </g>
+
+  <!-- Top Glass Layer -->
+  <g transform="translate(0, -34)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" 
+          fill="url(#topLayerDark)"/>
+    <!-- Top Rim Highlight -->
+    <path d="M 380,280 L 400,280 L 520,340" 
+          stroke="url(#edgeHighlightDark)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Brand Typography (Dark Mode Optimized) -->
+  <text x="400" y="515" 
+        font-family="'Inter', 'Segoe UI', system-ui, sans-serif" 
+        font-size="52" 
+        font-weight="700" 
+        fill="#f8fafc" 
+        text-anchor="middle" 
+        letter-spacing="-0.5">
+    Prism<tspan font-weight="800" fill="#38bdf8">Desk</tspan>
+  </text>
+</svg>

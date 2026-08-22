@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <style>
+      <![CDATA[
+      @keyframes pivotTop {
+        0%, 100% { transform: translate(0px, -34px) rotate(0deg); }
+        35%, 65% { transform: translate(0px, -34px) rotate(-16deg); }
+      }
+      @keyframes pivotMid {
+        0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+        35%, 65% { transform: translate(0px, 0px) rotate(12deg); }
+      }
+
+      .pivot-top { transform-origin: 390px 350px; animation: pivotTop 5s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+      .pivot-mid { transform-origin: 390px 350px; animation: pivotMid 5s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+      ]]>
+    </style>
+
+    <radialGradient id="lightGlowFan" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="topFanLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="midFanLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="baseFanLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="400" cy="320" r="280" fill="url(#lightGlowFan)"/>
+
+  <!-- Static Base Plate -->
+  <g transform="translate(0, 34)">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#baseFanLight)"/>
+  </g>
+  
+  <!-- Pivoting Middle Plate -->
+  <g class="pivot-mid">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#midFanLight)"/>
+  </g>
+
+  <!-- Pivoting Top Plate -->
+  <g class="pivot-top">
+    <path d="M 400,280 L 520,340 A 20,20 0 0,1 520,360 L 400,420 A 20,20 0 0,1 380,420 L 260,360 A 20,20 0 0,1 260,340 L 380,280 A 20,20 0 0,1 400,280 Z" fill="url(#topFanLight)"/>
+  </g>
+
+  <text x="400" y="515" font-family="'Inter', sans-serif" font-size="52" font-weight="700" fill="#0f172a" text-anchor="middle" letter-spacing="-0.5">Prism<tspan font-weight="800" fill="#2563eb">Desk</tspan></text>
+</svg>
